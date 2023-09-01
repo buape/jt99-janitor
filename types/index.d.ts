@@ -6,6 +6,6 @@ declare global {
 
 export interface CommandData {
     name: string;
-    description: string;
+    description?: string;
     options?: APIApplicationCommandOption[];
 }
