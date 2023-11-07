@@ -34,7 +34,7 @@ Go to `src/commands/tags` and duplicate an existing `.ts` file. Give it an appro
 
 ## The Final Step (IMPORTANT!)
 
-Go to `src/commands` and edit the `index.ts` file. On line 8, add the name of your new command to the array, making sure you follow the proper formatting.
+Go to `src/commands` and edit the `index.js` file. On line 8, add the name of your new command to the array, making sure you follow the proper formatting.
 
 
 ## The FINAL Final Step
