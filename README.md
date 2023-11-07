@@ -1,6 +1,6 @@
 # JT99-Janitor
 
-JT-99 Janitor is a utnilty bot for answering common questions and providing information about the JT-99 network
+JT-99 Janitor is a utility bot for answering common questions and providing information about the JT-99 network
 
 ## Commands
 
