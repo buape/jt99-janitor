@@ -4,7 +4,7 @@ JT-99 Janitor is a utility bot for answering common questions and providing info
 
 ## Commands
 
-`/getserverinfo` - Explains how to join other seervers in the network.
+`/getserverinfo` - Explains how to join other servers in the network.
 
 `/bots` - Explains how the people chatting in the network aren't bots, and that webhooks are used to broadcast messages.
 
