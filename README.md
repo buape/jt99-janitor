@@ -16,6 +16,8 @@ JT-99 Janitor is a utility bot for answering common questions and providing info
 
 `/english` - Warns users to speak in English and not any other lanauge.
 
+`/contribute` - Directs users if they want to add a new tag
+
 
 
 # Contributing
