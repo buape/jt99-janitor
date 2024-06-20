@@ -11,7 +11,7 @@ const run = async (interaction: APIInteraction): Promise<APIInteractionResponse>
         type: InteractionResponseType.ChannelMessageWithSource,
         data: {
             content:
-                'Those "apps" are actually just users in other servers. We use webhooks to broadcast the messages throughout the network, and those webhooks are displayed as bots in your client.',
+                'Those "apps" are actually just users in other servers. We use webhooks to broadcast the messages throughout the network, and those webhooks are displayed as apps in your client.',
         },
     }
 }
