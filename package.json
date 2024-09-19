@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0"
+  },
+  "dependencies": {
+    "@buape/carbon": "^0.4.2",
+    "wrangler": "^3.78.5"
+  }
+}
