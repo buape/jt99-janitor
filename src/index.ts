@@ -1,50 +1,47 @@
-import {
-    APIChatInputApplicationCommandInteraction,
-    APIInteraction,
-    InteractionResponseType,
-    InteractionType,
-} from "discord-api-types/v10"
-import { isValidRequest, PlatformAlgorithm } from "discord-verify"
+import { Client, ClientMode } from "@buape/carbon";
+import type { ExecutionContext } from "@cloudflare/workers-types/2023-07-01";
 
-import commands from "./commands"
+// Import Commands
+import baseStationCommand from "./commands/basestation";
+import botsCommand from "./commands/bots";
+import contributeCommand from "./commands/contribute";
+import englishCommand from "./commands/english";
+import getServerInfoCommand from "./commands/getserverinfo";
+import supportCommand from "./commands/support";
+import whatIsThisCommand from "./commands/whatisthis";
 
-const requestHandler = async (event: FetchEvent) => {
-    const isValid = await isValidRequest(
-        event.request,
-        "4a33caacf6cb3e94e68b518745cae8c53d6449a244b66f7e11a78d1c0776a448",
-        PlatformAlgorithm.Cloudflare
-    )
-    if (!isValid) return new Response("Invalid request signature", { status: 401 })
-    const data = (await event.request.json()) as APIInteraction
+type Env = {
+	CLIENT_ID: string;
+	PUBLIC_KEY: string;
+	DISCORD_TOKEN: string;
+};
 
-    console.log(data)
-    console.log(commands)
+export default {
+	async fetch(request: Request, _env: Env, ctx: ExecutionContext) {
+		const client = new Client(
+			{
+				clientId: _env.CLIENT_ID,
+				publicKey: _env.PUBLIC_KEY,
+				token: _env.DISCORD_TOKEN,
+				mode: ClientMode.CloudflareWorkers,
+			},
+			[
+				// Commands
+				new baseStationCommand(),
+				new botsCommand(),
+				new contributeCommand(),
+				new englishCommand(),
+				new getServerInfoCommand(),
+				new supportCommand(),
+				new whatIsThisCommand(),
+			],
+		);
 
-    switch (data.type) {
-        case InteractionType.Ping:
-            return new Response(JSON.stringify({ type: 1 }))
-
-        case InteractionType.ApplicationCommand:
-            const command = commands.find((command) => command.data.name === data.data.name)
-            if (!command) {
-                return new Response(
-                    JSON.stringify({
-                        type: InteractionResponseType.ChannelMessageWithSource,
-                        data: {
-                            content: "Pong!",
-                        },
-                    }),
-                    { status: 200 }
-                )
-            }
-            const interaction = data as APIChatInputApplicationCommandInteraction
-            const result = await command.run(interaction)
-            return new Response(JSON.stringify(result), { headers: { "Content-Type": "application/json" } })
-    }
-
-    return new Response("Hello world!", { status: 200 })
-}
-
-addEventListener("fetch", (event) => {
-    event.respondWith(requestHandler(event))
-})
+		if (request.url.endsWith("/deploy")) {
+			await client.deployCommands();
+			return new Response("Deployed commands");
+		}
+		const response = await client.router.fetch(request, ctx);
+		return response;
+	},
+};
