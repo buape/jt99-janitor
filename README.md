@@ -31,12 +31,12 @@ To contribute new tags/commands to Janitor, you will need to follow a process in
 
 ## Adding a new tag file
 
-Go to `src/commands/tags` and duplicate an existing `.ts` file. Give it an appropriate name, and make sure to edit/replace the command names and descriptions.
+Go to `src/commands` and duplicate an existing `.ts` file. Give it an appropriate name, and make sure to edit/replace the command names and descriptions.
 
 
 ## The Final Step (IMPORTANT!)
 
-Go to `src/commands` and edit the `index.ts` file. On line 8, add the name of your new command to the array, making sure you follow the proper formatting.
+Go to `/src` and edit the `index.ts` file. Under the commands area (Line 4 and below) add `import {command-name} from "./commands/{your-command-name}`. Then, under line 39 add `new {command-name}(),`
 
 
 ## The FINAL Final Step
